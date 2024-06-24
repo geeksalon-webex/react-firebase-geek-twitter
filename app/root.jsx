@@ -5,7 +5,8 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
-import { NavigationMenu } from "./components/NavigationMenu";
+import { NavigationMenu } from "./components/NavigationMenu/NavigationMenu";
+import { AuthContextProvider } from "./components/AuthContextProvider/AuthContextProvider";
 
 export const meta = () => {
   return [
@@ -40,7 +41,12 @@ export function Layout({ children }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  return (
+    <AuthContextProvider>
+      <NavigationMenu />
+      <Outlet />
+    </AuthContextProvider>
+  );
 }
 
 export function HydrateFallback() {

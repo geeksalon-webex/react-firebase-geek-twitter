@@ -1,36 +1,21 @@
-# Welcome to Remix!
+# React Firebase Geek Twitter
 
-- 📖 [Remix docs](https://remix.run/docs)
+Remix(React)を使った基本的な認証と Firebase を使ったデータ操作の実装例です。
 
-## Development
+## ローカルで動かすには
 
-Run the dev server:
+`node_modules`を npm で生成する必要があります。
 
-```shellscript
-npm run dev
+```bash
+npm ci
 ```
 
-## Deployment
+また、アプリケーションを動かすためには以下の変更が必要です。
 
-First, build your app for production:
+### firebase.js
 
-```sh
-npm run build
-```
+`/app/firebase.js` の `firebaseConfig` に Firebase の設定を記述してください。
 
-Then run the app in production mode:
+### Firebase Authentication
 
-```sh
-npm start
-```
-
-Now you'll need to pick a host to deploy it to.
-
-### DIY
-
-If you're familiar with deploying Node applications, the built-in Remix app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-- `build/server`
-- `build/client`
+Google 認証を使ったログイン機能をサンプルで実装しています。Firebase のコンソールから Google 認証を有効にしてください。
