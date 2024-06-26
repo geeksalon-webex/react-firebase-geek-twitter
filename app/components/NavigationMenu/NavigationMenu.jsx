@@ -1,9 +1,11 @@
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { useAuthContext } from "../AuthContextProvider/useAuthContext";
+import { useNavigate } from "@remix-run/react";
 import "./NavigationMenu.css";
 
 export const NavigationMenu = () => {
   const { isSignedIn, user } = useAuthContext();
+  const navigate = useNavigate();
 
   return (
     <nav className="navigation-menu">
@@ -31,6 +33,8 @@ export const NavigationMenu = () => {
           onClick={() => {
             const auth = getAuth();
             auth.signOut();
+            // ログアウトした場合は、今いるページの表示をリフレッシュする
+            navigate(".", { replace: true });
           }}
         >
           ログアウト
