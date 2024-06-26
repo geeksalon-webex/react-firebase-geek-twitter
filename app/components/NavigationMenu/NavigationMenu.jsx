@@ -1,19 +1,23 @@
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { useAuthContext } from "../AuthContextProvider/useAuthContext";
+import { Link, useNavigate } from "@remix-run/react";
 import "./NavigationMenu.css";
 
 export const NavigationMenu = () => {
   const { isSignedIn, user } = useAuthContext();
+  const navigate = useNavigate();
 
   return (
     <nav className="navigation-menu">
       {user !== null && (
-        <img
-          src={user.photoURL ?? "/user-icon.svg"}
-          alt="ユーザーのアイコン"
-          height={30}
-          className="user-icon"
-        />
+        <Link to="/users/setting">
+          <img
+            src={user.photoURL ?? "/user-icon.svg"}
+            alt="ユーザーのアイコン"
+            height={30}
+            className="user-icon"
+          />
+        </Link>
       )}
       {!isSignedIn ? (
         <button
@@ -31,6 +35,8 @@ export const NavigationMenu = () => {
           onClick={() => {
             const auth = getAuth();
             auth.signOut();
+            // ログアウトした場合は、今いるページの表示をリフレッシュする
+            navigate(".", { replace: true });
           }}
         >
           ログアウト

@@ -1,0 +1,19 @@
+.new-post-form__box {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.new-post-form__input {
+  flex-grow: 1;
+  margin: 0;
+}
+
+.new-post-form__feedback[data-feedback-type="success"] {
+  color: #0366d6;
+}
+
+.new-post-form__feedback[data-feedback-type="error"] {
+  color: #d60321;
+}
