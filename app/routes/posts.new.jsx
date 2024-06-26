@@ -1,9 +1,11 @@
 import { Link, useNavigate } from "@remix-run/react";
 import { useGuardAuthPage } from "../components/AuthContextProvider/useGuardAuthPage";
 import { NewPostForm } from "../components/NewPostForm/NewPostForm";
+import { useRefirectIfProfileNone } from "../components/UsersSettingForm/useRedirectIfProfileNone";
 
 export default function NewPostPage() {
   const isEnableShowPage = useGuardAuthPage();
+  useRefirectIfProfileNone();
   const navigate = useNavigate();
 
   if (!isEnableShowPage) return null;

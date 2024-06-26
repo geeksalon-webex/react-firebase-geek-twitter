@@ -1,6 +1,6 @@
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { useAuthContext } from "../AuthContextProvider/useAuthContext";
-import { useNavigate } from "@remix-run/react";
+import { Link, useNavigate } from "@remix-run/react";
 import "./NavigationMenu.css";
 
 export const NavigationMenu = () => {
@@ -10,12 +10,14 @@ export const NavigationMenu = () => {
   return (
     <nav className="navigation-menu">
       {user !== null && (
-        <img
-          src={user.photoURL ?? "/user-icon.svg"}
-          alt="ユーザーのアイコン"
-          height={30}
-          className="user-icon"
-        />
+        <Link to="/users/setting">
+          <img
+            src={user.photoURL ?? "/user-icon.svg"}
+            alt="ユーザーのアイコン"
+            height={30}
+            className="user-icon"
+          />
+        </Link>
       )}
       {!isSignedIn ? (
         <button
