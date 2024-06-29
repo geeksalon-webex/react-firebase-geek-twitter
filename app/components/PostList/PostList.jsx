@@ -38,7 +38,32 @@ export const PostList = ({ triggerKey = 0 }) => {
           doc.data().createdAt.nanoseconds
         ).toDate(),
       }));
-      setTweets(tweets);
+
+      const usersSnapshot = await getDocs(
+        query(collection(db, "users"), orderBy("createdAt", "desc"))
+      );
+
+      const tweetsWithName = tweets.map((tweet) => {
+        // ポイント解説
+        // `@ts-ignore` は VS Code が TypeScript の型チェックを無視するためのコメント。
+        // `@ts-ignore` のコメントを消してみると、VS Code がエラーを表示する
+        // @ts-ignore
+        const user = usersSnapshot.docs.find((doc) => doc.id === tweet.userId);
+
+        if (user) {
+          return {
+            ...tweet,
+            userName: user.data().name,
+          };
+        } else {
+          return {
+            ...tweet,
+            userName: "不明",
+          };
+        }
+      });
+
+      setTweets(tweetsWithName);
     } catch (error) {
       setFeedback("投稿の取得に失敗しました");
     }
@@ -73,7 +98,7 @@ export const PostList = ({ triggerKey = 0 }) => {
                   投稿日時：<time>{tweet.createdAt.toLocaleString()}</time>
                 </div>
                 <div>
-                  投稿者ID：<span>{tweet.userId}</span>
+                  投稿者：<span>{tweet.userName}</span>
                 </div>
               </div>
 
